@@ -61,19 +61,39 @@ float *tempBef = malloc(numDatos*sizeof(float));
 //el numero de iteraciones sera 50000 por las razones explicadas anteriormente
 for (j=0; j<50000; j++){
 	for (k=1; k<numDatos; k++){
-		if (j=0){
-		auxiliar[k] = (CondInic[k-1]-2.0*CondInic[k]+CondInic[k+1])*cte+ (2.0*CondInic[k]-0.0);
+		
+		if (k=1){
+			if (j=0){
+		auxiliar[k] = (extIzq-2.0*CondInic[k]+CondInic[k+1])*cte+ (2.0*CondInic[k]-0.0);
+			}
+			else{
+		auxiliar[k] = (extIzq-2.0*CondInic[k]+CondInic[k+1])*cte+ (2.0*CondInic[k]-tempBef[k]);
+			}
 		}
-		else{
+		
+		
+		if (k=128){
+			if (j=0){
+		auxiliar[k] = (CondInic[k-1]-2.0*CondInic[k]+extDer)*cte+ (2.0*CondInic[k]-0.0);
+			}
+			else{
+		auxiliar[k] = (CondInic[k-1]-2.0*CondInic[k]+extDer)*cte+ (2.0*CondInic[k]-tempBef[k]);
+			}
+		}
+		
+		
+		else {
+			if (j=0){
+		auxiliar[k] = (CondInic[k-1]-2.0*CondInic[k]+CondInic[k+1])*cte+ (2.0*CondInic[k]-0.0);
+			}
+			else{
 		auxiliar[k] = (CondInic[k-1]-2.0*CondInic[k]+CondInic[k+1])*cte+ (2.0*CondInic[k]-tempBef[k]);
+			}
 		}
 	}
 tempBef[k]=CondInic[k];
 CondInic[k]=auxiliar[k];
 }
-	
-
-
 
 
 
